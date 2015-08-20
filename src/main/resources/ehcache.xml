@@ -1,0 +1,9 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd">
+
+    <cache name="RelCatServiceRADS"
+           maxElementsInMemory="25" eternal="false" timeToIdleSeconds="0"
+           timeToLiveSeconds="300" overflowToDisk="true"
+           memoryStoreEvictionPolicy="LFU"/>
+
+</ehcache>
