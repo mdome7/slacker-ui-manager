@@ -1,0 +1,66 @@
+-@ val body: String
+-@ val title: String = "Slacker Manager"
+
+- attributes.list("js") += uri("/static/modules/jquery-2.1.4.min.js")
+- attributes.list("js") += uri("/static/modules/jquery-ui-1.11.4/jquery-ui.min.js")
+- attributes.list("js") += uri("/static/modules/bootstrap-3.3.5-dist/js/bootstrap.min.js")
+
+- attributes.list("css") += uri("/static/modules/jquery-ui-1.11.4/jquery-ui.css")
+- attributes.list("css") += uri("/static/modules/bootstrap-3.3.5-dist/css/bootstrap.min.css")
+- attributes.list("css") += uri("/static/modules/font-awesome-4.4.0/css/font-awesome.min.css")
+
+- response.setContentType("text/html")
+!!! 5
+
+%html
+  %head
+    %title = title
+    %meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+    %link(href={uri("/static/css/default.css")} rel="stylesheet" type="text/css")
+
+    - for (s: String <- attributes.list("js").asInstanceOf[Iterable[String]])
+      %script(type="text/javascript" src=s)
+    - for (c: String <- attributes.list("css").asInstanceOf[Iterable[String]])
+      %link(rel="stylesheet" href=c)
+  %body
+    %nav.navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          %button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand(href={uri("/home")})
+            %span.fa.fa-object-group
+            Slacker Manager
+
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li
+              %a(href={uri("/actions")})
+                Actions
+            %li
+              %a(href={uri("/collectors")})
+                Collectors
+            %li
+              %a(href={uri("/triggers")})
+                Triggers
+            %li
+              %a(href={uri("/workflows")})
+                Workflows
+            %li.dropdown
+              %a(href="#" class="dropdown-toggle" data-toggle="dropdown")
+                Admin
+                %span.caret
+                %ul.dropdown-menu
+                  %li
+                    %a(href={uri("/admin/executions")})
+                      %span.fa.fa-list
+                        Executions
+
+    %section#main_content
+      !~~ body
+    #footer @Copyright 2015

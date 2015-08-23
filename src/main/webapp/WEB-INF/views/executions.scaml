@@ -1,0 +1,16 @@
+-@ var finishedExecutions: List[com.labs2160.slacker.model.Execution]
+-@ val title: String = "Executions"
+
+%h2 = title
+.fluid-container
+  .row
+    .col-md-12
+      %h3 = "Finished Executions"
+  - for (fe <- finishedExecutions)
+    .row
+      .col-md-3
+        = fe.workflowId
+      .col-md-9
+        - for (l <- fe.lines)
+          .line = l
+

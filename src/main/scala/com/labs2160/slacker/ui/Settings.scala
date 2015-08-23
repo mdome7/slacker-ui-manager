@@ -1,5 +1,7 @@
 package com.labs2160.slacker.ui
 
+import java.nio.file.Paths
+
 import com.typesafe.config.ConfigFactory
 
 /**
@@ -7,7 +9,7 @@ import com.typesafe.config.ConfigFactory
  */
 object Settings {
 
-    /* looks for application.properties in classpath; can be overridden by system env "config.file",
+    /* looks for application.conf in classpath; can be overridden by system env "config.file",
        "config.resource" or "config.url" (see typesafe config documentation) */
     val config = ConfigFactory.load
 
@@ -24,4 +26,8 @@ object Settings {
     /** port the Jetty server will listen on */
     val serverPort = config.getInt("server.port")
 
+    val dirHome = Paths.get(config.getString("directories.home"))
+    val dirLib = Paths.get(config.getString("directories.lib"))
+    val dirConf = Paths.get(config.getString("directories.conf"))
+    val dirExecutionsLogs = Paths.get(config.getString("directories.executions.logs"))
 }

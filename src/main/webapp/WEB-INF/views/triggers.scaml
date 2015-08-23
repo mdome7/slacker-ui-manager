@@ -1,0 +1,15 @@
+-@ var actionMetadataList: List[com.labs2160.slacker.core.engine.ActionMetadata]
+-@ val title: String = "Triggers"
+
+%h2 = title
+.fluid-container
+  .row
+    .col-md-3
+      %ul.list-group
+        - for (md <- triggerMetadataList)
+          %li.list-group-item
+            = md.name
+    .col-md-9.panel.panel-default
+      .panel-body
+        test
+

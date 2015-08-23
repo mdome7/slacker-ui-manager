@@ -9,7 +9,9 @@
 
   <logger name="org.eclipse.jetty.io" level="INFO" />
 
-  <root level="DEBUG">
+  <logger name="com.labs2160" level="DEBUG" />
+
+  <root level="INFO">
     <appender-ref ref="STDOUT"/>
   </root>
 </configuration>

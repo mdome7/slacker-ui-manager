@@ -1,17 +1,24 @@
 package com.labs2160.slacker.ui
 
-import com.typesafe.scalalogging.Logger
+import com.typesafe.scalalogging.{LazyLogging, Logger}
 import org.json4s.{DefaultFormats, Formats}
-import org.scalatra.{InternalServerError, ScalatraServlet}
+import org.scalatra.scalate.{ScalateUrlGeneratorSupport, ScalateSupport}
+import org.scalatra.{UrlGeneratorSupport, InternalServerError, ScalatraServlet}
 import org.scalatra.json.JacksonJsonSupport
 import org.slf4j.LoggerFactory
+import org.scalatra.json._
 
 /**
  * Base servlet for this application
  */
-abstract class BaseServlet extends ScalatraServlet with JacksonJsonSupport {
+abstract class BaseServlet extends ScalatraServlet
+    with JacksonJsonSupport
+    with ScalateSupport
+    with UrlGeneratorSupport
+    with ScalateUrlGeneratorSupport
+    with LazyLogging {
 
-    protected val logger = Logger(LoggerFactory.getLogger(this.getClass))
+    val defaultRoute = get("/") { jade("index") }
 
     // Sets up automatic case class to JSON output serialization
     protected implicit val jsonFormats: Formats = DefaultFormats
@@ -19,6 +26,16 @@ abstract class BaseServlet extends ScalatraServlet with JacksonJsonSupport {
     before() {
         // Before every action runs, set the content type to be in JSON format.
         contentType = formats("json")
+    }
+
+    notFound {
+        // remove content type in case it was set through an action
+        contentType = null
+        // Try to render a ScalateTemplate if no route matched
+        findTemplate(requestPath) map { path =>
+            contentType = "text/html"
+            layoutTemplate(path)
+        } orElse serveStaticResource() getOrElse resourceNotFound()
     }
 
     /**
