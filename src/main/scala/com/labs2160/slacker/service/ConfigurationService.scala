@@ -17,7 +17,4 @@ class ConfigurationService(val engine: WorkflowEngine, val actionDAO: ActionDAO)
 
     def listWorkflowMetadata(): List[WorkflowMetadata] = engine.getRegistry.getWorkflowMetadata.toList
 
-    def findWorkflow(path: String*): Workflow = {
-        engine.getRegistry.findWorkflow(path: _*)
-    }
 }

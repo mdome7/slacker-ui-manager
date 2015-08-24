@@ -8,7 +8,7 @@ import com.labs2160.slacker.service.{ExecutionsService, ConfigurationService}
 class ExecutionsServlet(val confService: ConfigurationService, val executionsService: ExecutionsService) extends BaseServlet {
 
     get ("/") {
-        contentType = "text/html"
+        contentType = formats("html")
 
         scaml("executions",
             "finishedExecutions" -> executionsService.getFinishedExecutions())

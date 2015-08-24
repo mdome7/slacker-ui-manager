@@ -1,19 +1,56 @@
 -@ var workflowMetadataList: List[com.labs2160.slacker.core.engine.WorkflowMetadata]
 -@ val title: String = "Workflows"
+- attributes.list("js") += uri("/static/js/compiled/workflows.js")
 
 %h2 = title
-.fluid-container
-  .row
-    .col-md-3
-      .list-group.my-list
-        - for (md <- workflowMetadataList)
-          %a.list-group-item
-            %h4.list-group-item-heading
-              %span.fa.fa-sitemap.fa-2x.fa-border.fa-pull-left
-              = "\"" + md.getPath.reduceLeft(_ + " " + _) + "\""
-              %small = md.getName
-            %p.list-group-item-text
-              = md.getDescription
-    .col-md-9
-      .detail_content.well
-        test
+.workflow(data-ng-app="")
+  .fluid-container
+    .row
+      .col-md-3
+        .list-group.my-list
+          - for (md <- workflowMetadataList)
+            - var pathUnderscored = md.getPath.mkString("_")
+            %a.list-group-item(onclick="showWorkflow('#{pathUnderscored}')")
+              %h3.list-group-item-heading
+                %span.fa.fa-sitemap.fa-border.fa-pull-left
+                = "\"" + md.getPath.reduceLeft(_ + " " + _) + "\""
+                %small = md.getName
+      .col-md-9
+        #wf-details.detail_content.hidden
+          %h3
+            %span#wf-path.wf-path(data-ng-bind="path")
+              test
+            %small#wf-name(data-ng-bind="name")
+              hello
+          %blockquote
+            %p#wf-description
+              my description
+
+          .well
+            .panel.panel-success.action-panel
+              .panel-heading = "Action 1"
+              .panel-body
+                %p
+                  %em = "Class name:"
+                  %b#wf-action-1
+                    actionClass
+                %p
+                  %em = "Configuration:"
+
+          %hr
+
+          .panel.panel-default
+            .panel-heading = "Try it!"
+            .panel-body
+              %b.wf-path = "calc"
+              .input-group
+                %input#request-args.form-control(type="text")
+                %span.input-group-btn
+                  %button.btn.btn-success(type="button" onclick="submitRequest()")
+                    Execute
+                    %span.fa.fa-play
+
+          #response-details.panel.panel-default.hidden
+            .panel-heading = "Response"
+            #response.panel-body(data-ng-bind="response")
+              None

@@ -24,7 +24,7 @@ class JSONSpec extends FunSpec with BeforeAndAfter with GivenWhenThen with MockF
         EndpointDefinition(s"endpoint${i}", Map("key" -> s"val${i}"))
     })
 
-    val workflow = WorkflowDefinition(Seq("a", "b"), "workflow1", "description", actions, endpoints, true)
+    val workflow = WorkflowDefinition(Seq("a", "b"), "workflow1", "description", true, actions, endpoints)
 
     val om = new ObjectMapper()
 

@@ -11,7 +11,7 @@ import org.scalatra.json._
 /**
  * Created by mdometita on 8/20/15.
  */
-class WorkflowsServlet(val confService: ConfigurationService) extends BaseServlet with LazyLogging {
+class WorkflowsServlet(val confService: ConfigurationService, val workflowService: WorkflowService) extends BaseServlet with LazyLogging {
 
     protected override implicit val jsonFormats: Formats = DefaultFormats + FieldSerializer[Workflow]()
 
@@ -28,12 +28,12 @@ class WorkflowsServlet(val confService: ConfigurationService) extends BaseServle
     get("/:path") {
         contentType = formats("json")
         val path = params("path").split("_")
-        val wf = confService.findWorkflow(path: _*)
+        val wf = workflowService.findWorkflow(path: _*)
         if (wf == null) {
             halt(NotFound(s"Workflow not found for path: ${path.reduceLeft(_ + " " + _)}"))
         } else {
             logger.debug(s"Found workflow ${wf.getName} - ${wf.getDescription}")
-            WorkflowService.extractDefinition(wf)
+            workflowService.extractDefinition(wf, path: _*)
         }
     }
 }

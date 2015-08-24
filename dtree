@@ -1,5 +1,13 @@
 [WARNING] Disabling enhanced local repository: using legacy is strongly discouraged to ensure build reproducibility.
 [INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.labs2160.slacker:slacker-ui-manager:war:1.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.scala-lang:scala-compiler:jar -> duplicate declaration of version ${scala.version.long} @ line 62, column 17
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
 [INFO] Building slacker-ui-manager 1.0-SNAPSHOT
@@ -7,17 +15,29 @@
 [INFO] 
 [INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ slacker-ui-manager ---
 [INFO] com.labs2160.slacker:slacker-ui-manager:war:1.0-SNAPSHOT
+[INFO] +- com.labs2160.slacker:slacker-api:jar:1.1-SNAPSHOT:compile
+[INFO] +- com.labs2160.slacker:slacker-core:jar:1.1-SNAPSHOT:compile
+[INFO] |  +- javax.annotation:javax.annotation-api:jar:1.2:compile
+[INFO] |  +- javax.inject:javax.inject:jar:1:compile
+[INFO] |  +- javax.enterprise:cdi-api:jar:1.1:compile
+[INFO] |  |  +- javax.el:el-api:jar:2.2:compile
+[INFO] |  |  +- org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:jar:1.0.0.Beta1:compile
+[INFO] |  |  \- javax.annotation:jsr250-api:jar:1.0:compile
+[INFO] |  +- org.yaml:snakeyaml:jar:1.15:compile
+[INFO] |  \- org.apache.commons:commons-lang3:jar:3.1:compile
+[INFO] +- org.scala-lang:scala-compiler:jar:2.11.6:compile
+[INFO] |  +- org.scala-lang.modules:scala-xml_2.11:jar:1.0.3:compile
+[INFO] |  \- org.scala-lang.modules:scala-parser-combinators_2.11:jar:1.0.3:compile
+[INFO] +- org.scala-lang:scala-library:jar:2.11.6:compile
+[INFO] +- org.scala-lang:scala-reflect:jar:2.11.6:compile
 [INFO] +- org.scalatra:scalatra_2.11:jar:2.3.1:compile
-[INFO] |  +- org.scala-lang:scala-library:jar:2.11.6:compile
 [INFO] |  +- org.scalatra:scalatra-common_2.11:jar:2.3.1:compile
 [INFO] |  +- org.clapper:grizzled-slf4j_2.11:jar:1.0.2:compile
 [INFO] |  +- org.scalatra.rl:rl_2.11:jar:0.4.10:compile
 [INFO] |  +- com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile
 [INFO] |  +- eu.medsea.mimeutil:mime-util:jar:2.1.3:compile
 [INFO] |  +- joda-time:joda-time:jar:2.7:compile
-[INFO] |  +- org.joda:joda-convert:jar:1.7:compile
-[INFO] |  +- org.scala-lang.modules:scala-parser-combinators_2.11:jar:1.0.3:compile
-[INFO] |  \- org.scala-lang.modules:scala-xml_2.11:jar:1.0.3:compile
+[INFO] |  \- org.joda:joda-convert:jar:1.7:compile
 [INFO] +- org.scalatra:scalatra-json_2.11:jar:2.3.1:compile
 [INFO] |  \- org.json4s:json4s-core_2.11:jar:3.2.11:compile
 [INFO] |     +- org.json4s:json4s-ast_2.11:jar:3.2.11:compile
@@ -25,8 +45,7 @@
 [INFO] |     \- org.scala-lang:scalap:jar:2.11.0:compile
 [INFO] +- org.scalatra:scalatra-scalate_2.11:jar:2.3.1:compile
 [INFO] |  \- org.scalatra.scalate:scalate-core_2.11:jar:1.7.1:compile
-[INFO] |     +- org.scalatra.scalate:scalate-util_2.11:jar:1.7.1:compile
-[INFO] |     \- org.scala-lang:scala-compiler:jar:2.11.0:compile
+[INFO] |     \- org.scalatra.scalate:scalate-util_2.11:jar:1.7.1:compile
 [INFO] +- org.scalatra:scalatra-swagger_2.11:jar:2.3.0:compile
 [INFO] |  \- org.json4s:json4s-ext_2.11:jar:3.2.10:compile
 [INFO] +- org.json4s:json4s-jackson_2.11:jar:3.2.11:compile
@@ -40,7 +59,6 @@
 [INFO] +- javax.ws.rs:javax.ws.rs-api:jar:2.0:compile
 [INFO] +- org.glassfish.jersey.core:jersey-client:jar:2.7:compile
 [INFO] |  +- org.glassfish.jersey.core:jersey-common:jar:2.7:compile
-[INFO] |  |  +- javax.annotation:javax.annotation-api:jar:1.2:compile
 [INFO] |  |  +- org.glassfish.jersey.bundles.repackaged:jersey-guava:jar:2.7:compile
 [INFO] |  |  \- org.glassfish.hk2:osgi-resource-locator:jar:1.0.1:compile
 [INFO] |  +- org.glassfish.hk2:hk2-api:jar:2.2.0:compile
@@ -58,7 +76,6 @@
 [INFO] +- javax.servlet:javax.servlet-api:jar:3.1.0:compile
 [INFO] +- com.typesafe:config:jar:1.3.0:compile
 [INFO] +- com.github.cb372:scalacache-core_2.11:jar:0.6.4:compile
-[INFO] |  \- org.scala-lang:scala-reflect:jar:2.11.7:compile
 [INFO] +- com.github.cb372:scalacache-ehcache_2.11:jar:0.6.4:compile
 [INFO] |  \- javax.transaction:jta:jar:1.1:compile
 [INFO] +- net.sf.ehcache:ehcache:jar:2.10.0:compile
@@ -76,7 +93,6 @@
 [INFO]    |  +- org.eclipse.jetty:jetty-webapp:jar:9.2.10.v20150310:test
 [INFO]    |  |  \- org.eclipse.jetty:jetty-xml:jar:9.2.10.v20150310:test
 [INFO]    |  +- org.mockito:mockito-all:jar:1.10.19:test
-[INFO]    |  +- org.apache.commons:commons-lang3:jar:3.3.2:test
 [INFO]    |  +- org.apache.httpcomponents:httpclient:jar:4.3.6:test
 [INFO]    |  |  +- org.apache.httpcomponents:httpcore:jar:4.3.3:test
 [INFO]    |  |  +- commons-logging:commons-logging:jar:1.1.3:test
@@ -87,7 +103,7 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 3.033 s
-[INFO] Finished at: 2015-08-20T13:16:50-07:00
+[INFO] Total time: 2.954 s
+[INFO] Finished at: 2015-08-24T09:26:16-07:00
 [INFO] Final Memory: 15M/245M
 [INFO] ------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import javax.servlet.ServletContext
 import com.labs2160.slacker.core.config.{YAMLWorkflowEngineProvider, SlackerConfig}
 import com.labs2160.slacker.core.dao.{ActionDAOFS, ActionDAO}
 import com.labs2160.slacker.core.lib.ClassLoaderUtil
-import com.labs2160.slacker.service.{ExecutionsService, ConfigurationService, WorkflowExecutionLogger}
+import com.labs2160.slacker.service.{WorkflowService, ExecutionsService, ConfigurationService, WorkflowExecutionLogger}
 import com.labs2160.slacker.ui._
 import com.typesafe.scalalogging.LazyLogging
 import net.sf.ehcache.CacheManager
@@ -51,14 +51,16 @@ class ScalatraBootstrap extends LifeCycle with LazyLogging {
         val actionDAO = new ActionDAOFS(Settings.dirConf)
         val confService = new ConfigurationService(engine, actionDAO)
         val executionsService = new ExecutionsService(Settings.dirExecutionsLogs)
+        val workflowService = new WorkflowService(engine)
 
         context.mount(new SystemServlet, s"$ContextPath/system", "System")
         context.mount(new HomeServlet(confService), s"$ContextPath/home", "Home")
         context.mount(new ActionsServlet(confService), s"$ContextPath/actions", "Actions")
         context.mount(new TriggersServlet(confService), s"$ContextPath/triggers", "Triggers")
         context.mount(new CollectorsServlet(confService), s"$ContextPath/collectors", "Collectors")
-        context.mount(new WorkflowsServlet(confService), s"$ContextPath/workflows", "Workflows")
+        context.mount(new WorkflowsServlet(confService, workflowService), s"$ContextPath/workflows", "Workflows")
         context.mount(new ExecutionsServlet(confService, executionsService), s"$ContextPath/admin/executions", "Executions")
+        context.mount(new ExecutionServlet(engine), s"$ContextPath/execute", "Execute")
     }
 
     def loadLibraries(dir: Path): Unit = {
