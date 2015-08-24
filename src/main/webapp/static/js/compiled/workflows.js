@@ -1,6 +1,11 @@
 var currentWorkflow = null;
 
 function showWorkflow(workflowPathUnderscored) {
+  $('.wf-list li.active').removeClass('active');
+  $('.wf-list #nav_' + workflowPathUnderscored).addClass('active');
+  $('#wf-details').hide();
+  $('#response-details').hide();
+
   console.log('Showing workflow ' + workflowPathUnderscored);
   $.get('/workflows/' + workflowPathUnderscored, showWorkflowDetails);
 }
@@ -13,7 +18,7 @@ function showWorkflowDetails(workflow) {
 
   // TODO: use Angular
   $('#wf-name').text(workflow.name);
-  $('.wf-path').text(workflow.path);
+  $('.wf-path').text(workflow.path.join(' '));
   $('#wf-description').text(workflow.description);
   $('#wf-action-1').text(workflow.actions[0].className);
   $('#request-args').val('');

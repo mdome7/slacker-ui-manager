@@ -2,15 +2,18 @@
 -@ val title: String = "Actions"
 
 %h2 = title
-.fluid-container
-  .row
-    .col-md-3
-      %ul.list-group
-        - for (md <- actionMetadataList)
-          %li.list-group-item
-            = md.getName
-    .col-md-9
-      .panel.panel-default
-        .panel-body
-          test
+.actions-app(data-ng-app="")
+  .fluid-container
+    .row
+      .col-md-4.border-right
+        %ul.nav.nav-pills.nav-stacked.wf-list
+          - for (md <- actionMetadataList)
+            %li(role="presentation")
+              %a(onclick="showAction('#{md.getActionClassName}')" href="#")
+                %span.fa.fa-gears.fa-border.fa-pull-left
+                %b = "\"" + md.getActionClassName + "\""
+      .col-md-8
+        .panel.panel-default
+          .panel-body
+            test
 

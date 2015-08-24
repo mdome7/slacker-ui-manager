@@ -6,15 +6,15 @@
 .workflow(data-ng-app="")
   .fluid-container
     .row
-      .col-md-3
-        .list-group.my-list
+      .col-md-3.border-right
+        %ul.nav.nav-pills.nav-stacked.wf-list
           - for (md <- workflowMetadataList)
             - var pathUnderscored = md.getPath.mkString("_")
-            %a.list-group-item(onclick="showWorkflow('#{pathUnderscored}')")
-              %h3.list-group-item-heading
+            %li(role="presentation" id="nav_#{pathUnderscored}")
+              %a(onclick="showWorkflow('#{pathUnderscored}')" href="#")
                 %span.fa.fa-sitemap.fa-border.fa-pull-left
-                = "\"" + md.getPath.reduceLeft(_ + " " + _) + "\""
-                %small = md.getName
+                %b = "\"" + md.getPath.reduceLeft(_ + " " + _) + "\""
+                %em = md.getName
       .col-md-9
         #wf-details.detail_content.hidden
           %h3
@@ -28,7 +28,9 @@
 
           .well
             .panel.panel-success.action-panel
-              .panel-heading = "Action 1"
+              .panel-heading
+                %span.fa.fa-gears
+                Action 1
               .panel-body
                 %p
                   %em = "Class name:"

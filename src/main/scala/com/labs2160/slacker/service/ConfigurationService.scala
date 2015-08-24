@@ -11,7 +11,13 @@ import scala.collection.JavaConversions._
  */
 class ConfigurationService(val engine: WorkflowEngine, val actionDAO: ActionDAO) {
 
-    def listActionClasses(): List[Class[_ <: Action]] = actionDAO.listActionClasses
+    def listActionClasses(): List[Class[_ <: Action]] = {
+        //actionDAO.listActionClasses
+        listWorkflowMetadata.map(wfmd => {
+            val wf = engine.getRegistry.findWorkflow(wfmd.getPath: _*)
+            wf.getActions.get(0).getClass
+        }).toSet.toList
+    }
 
     def listActionMetadata(): List[ActionMetadata] = listActionClasses.map(ActionMetadataExtractor.extract(_))
 
